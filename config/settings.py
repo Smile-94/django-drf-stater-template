@@ -15,6 +15,7 @@ from config.django.sessions import sessions_config
 from config.django.static import static_config
 from config.django.templates import template_config
 from config.django.time_zone import time_zone_config
+from config.django.logging import logging_config
 
 # ------------------------------------------------------------------------------
 # Core project paths and base configuration
@@ -58,7 +59,8 @@ ROOT_URLCONF = base_config.ROOT_URLCONF
 # WSGI_APPLICATION = base_config.ASGI_APPLICATION
 
 # WSGI for runserver / uwsgi / gunicorn wsgi
-WSGI_APPLICATION = "config.wsgi.application"
+# WSGI_APPLICATION = "config.wsgi.application"
+ASGI_APPLICATION = "config.asgi.application"
 
 # ------------------------------------------------------------------------------
 # Templates configuration
@@ -146,3 +148,8 @@ SESSION_SAVE_EVERY_REQUEST = sessions_config.SESSION_SAVE_EVERY_REQUEST
 # Documentation configuration
 # ------------------------------------------------------------------------------
 SPECTACULAR_SETTINGS = documentation_config.SPECTACULAR_SETTINGS
+
+# ------------------------------------------------------------------------------
+# Logging configuration
+# ------------------------------------------------------------------------------
+LOGGING = logging_config.LOGGING

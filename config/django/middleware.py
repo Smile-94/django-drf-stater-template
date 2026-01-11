@@ -21,24 +21,17 @@ class MiddlewareSettings(BaseSettings):
     ]
 
     # Third-party middleware shared across environments
-    THIRD_PARTY_MIDDLEWARE: list[str] = ["whitenoise.middleware.WhiteNoiseMiddleware"]
+    THIRD_PARTY_MIDDLEWARE: list[str] = [
+        "whitenoise.middleware.WhiteNoiseMiddleware",
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+    ]
 
     # Project-specific custom middleware
     CUSTOM_MIDDLEWARE: list[str] = []
-
-    # Environment-specific middleware toggles (e.g. debug tools in local only)
-    ENVIRONMENT_BASE_MIDDLEWARE: dict[str, list[str]] = {
-        "local": ["debug_toolbar.middleware.DebugToolbarMiddleware"],
-        "development": [],
-        "staging": [],
-        "production": [],
-    }
+    # CUSTOM_MIDDLEWARE: list[str] = []
 
     @model_validator(mode="after")
     def set_middleware(self):
-        # Inject environment-specific middleware first
-        self.MIDDLEWARE += list(self.ENVIRONMENT_BASE_MIDDLEWARE[env_config.ENVIRONMENT.value])
-
         # Append third-party middleware after core middleware
         if self.THIRD_PARTY_MIDDLEWARE:
             self.MIDDLEWARE += self.THIRD_PARTY_MIDDLEWARE
