@@ -20,15 +20,13 @@ class InstalledAppsSettings(BaseSettings):
     ]
 
     # Third-party applications common across environments
-    THIRD_PARTY_APPS: list[str] = ["django_filters", "rest_framework"]
-
-    # Environment-specific app toggles (e.g. debug tools in local only)
-    ENVIRONMENT_APPS: dict[str, list[str]] = {
-        "local": ["debug_toolbar"],
-        "development": [],
-        "staging": [],
-        "production": [],
-    }
+    THIRD_PARTY_APPS: list[str] = [
+        "django_filters",
+        "rest_framework",
+        "drf_spectacular",
+        "drf_spectacular_sidecar",
+        "debug_toolbar",
+    ]
 
     # Project-specific Django apps
     LOCAL_APPS: list[str] = [
@@ -40,9 +38,6 @@ class InstalledAppsSettings(BaseSettings):
 
     @model_validator(mode="after")
     def set_apps(self):
-        # Inject environment-specific apps based on active runtime environment
-        self.THIRD_PARTY_APPS += list(self.ENVIRONMENT_APPS[env_config.ENVIRONMENT.value])
-
         # Preserve Django app loading order: core → third-party → local
         self.INSTALLED_APPS = list(self.DJANGO_APPS + self.THIRD_PARTY_APPS + self.LOCAL_APPS)
         return self

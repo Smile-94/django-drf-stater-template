@@ -76,6 +76,11 @@ class RestFrameworkSettings(BaseSettings):
     # Hard timeout for API views (seconds)
     DEFAULT_TIMEOUT: int = 3600
 
+    # Default schema class for API views
+    DEFAULT_SCHEMA_CLASS: str = Field(
+        default="drf_spectacular.openapi.AutoSchema", description="Default schema class for API views"
+    )
+
     # Default permission policy for DRF views
     @model_validator(mode="after")
     def set_default_permissions(self):
@@ -113,6 +118,7 @@ class RestFrameworkSettings(BaseSettings):
             "DEFAULT_PAGINATION_CLASS": self.DEFAULT_PAGINATION_CLASS,
             "PAGE_SIZE": self.PAGE_SIZE,
             "DEFAULT_TIMEOUT": self.DEFAULT_TIMEOUT,
+            "DEFAULT_SCHEMA_CLASS": self.DEFAULT_SCHEMA_CLASS,
         }
         return self
 

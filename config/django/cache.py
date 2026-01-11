@@ -79,8 +79,7 @@ class CacheSettings(BaseSettings):
             }
         }
 
-        # Set Redis password securely if provided
-        if self.REDIS_PASSWORD:
+        if self.REDIS_PASSWORD and self.REDIS_PASSWORD.get_secret_value():
             self.CACHES["default"]["OPTIONS"]["PASSWORD"] = self.REDIS_PASSWORD.get_secret_value()
 
         # Enable socket connect timeout for production

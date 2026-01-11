@@ -6,6 +6,7 @@ from config.django.authentication import authentication_config
 from config.django.base import base_config
 from config.django.cache import cache_config
 from config.django.database import database_config
+from config.django.documentation import documentation_config
 from config.django.installed_apps import installed_apps_config
 from config.django.middleware import middleware_config
 from config.django.rest_framework import drf_config
@@ -54,8 +55,10 @@ MIDDLEWARE = middleware_config.MIDDLEWARE
 ROOT_URLCONF = base_config.ROOT_URLCONF
 
 # ASGI entry point (used for async support, WebSockets, and background tasks)
-WSGI_APPLICATION = base_config.ASGI_APPLICATION
+# WSGI_APPLICATION = base_config.ASGI_APPLICATION
 
+# WSGI for runserver / uwsgi / gunicorn wsgi
+WSGI_APPLICATION = "config.wsgi.application"
 
 # ------------------------------------------------------------------------------
 # Templates configuration
@@ -138,3 +141,8 @@ SESSION_COOKIE_SAMESITE = sessions_config.SESSION_COOKIE_SAMESITE
 SESSION_EXPIRE_AT_BROWSER_CLOSE = sessions_config.SESSION_EXPIRE_AT_BROWSER_CLOSE
 SESSION_COOKIE_AGE = sessions_config.SESSION_COOKIE_AGE
 SESSION_SAVE_EVERY_REQUEST = sessions_config.SESSION_SAVE_EVERY_REQUEST
+
+# ------------------------------------------------------------------------------
+# Documentation configuration
+# ------------------------------------------------------------------------------
+SPECTACULAR_SETTINGS = documentation_config.SPECTACULAR_SETTINGS

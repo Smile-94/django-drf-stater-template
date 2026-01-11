@@ -17,6 +17,8 @@ djangorestframework = "^3.16.1"
 django-filter = "^25.2"
 redis = "^7.1.0"
 django-redis = "^6.0.0"
+drf-spectacular = "^0.29.0"
+drf-spectacular-sidecar = "^2026.1.1"
 
 
 [tool.poetry.group.dev.dependencies]
