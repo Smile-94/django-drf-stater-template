@@ -15,10 +15,13 @@ django-debug-toolbar = "^6.1.0"
 whitenoise = "^6.11.0"
 djangorestframework = "^3.16.1"
 django-filter = "^25.2"
+redis = "^7.1.0"
+django-redis = "^6.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.14.11"
+
 
 [build-system]
 requires = ["poetry-core"]
@@ -101,3 +104,5 @@ force-sort-within-sections = true
 quote-style = "double"
 indent-style = "space"
 line-ending = "lf"
+
+

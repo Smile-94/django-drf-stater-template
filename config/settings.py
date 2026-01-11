@@ -4,13 +4,16 @@
 # ------------------------------------------------------------------------------
 from config.django.authentication import authentication_config
 from config.django.base import base_config
+from config.django.cache import cache_config
 from config.django.database import database_config
 from config.django.installed_apps import installed_apps_config
 from config.django.middleware import middleware_config
 from config.django.rest_framework import drf_config
 from config.django.security import security_config
+from config.django.sessions import sessions_config
 from config.django.static import static_config
 from config.django.templates import template_config
+from config.django.time_zone import time_zone_config
 
 # ------------------------------------------------------------------------------
 # Core project paths and base configuration
@@ -81,16 +84,16 @@ AUTH_PASSWORD_VALIDATORS = authentication_config.AUTH_PASSWORD_VALIDATORS
 # Internationalization
 # ------------------------------------------------------------------------------
 # Default language for the application
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = time_zone_config.LANGUAGE_CODE
 
 # Application time zone (UTC recommended for production systems)
-TIME_ZONE = "UTC"
+TIME_ZONE = time_zone_config.TIME_ZONE
 
 # Enable Django’s translation system
-USE_I18N = True
+USE_I18N = time_zone_config.USE_I18N
 
 # Store datetimes in UTC and convert to local time when needed
-USE_TZ = True
+USE_TZ = time_zone_config.USE_TZ
 
 
 # ------------------------------------------------------------------------------
@@ -117,3 +120,21 @@ MEDIA_ROOT = static_config.MEDIA_ROOT
 # ------------------------------------------------------------------------------
 # DRF settings loaded via Pydantic
 REST_FRAMEWORK = drf_config.REST_FRAMEWORK
+
+# ------------------------------------------------------------------------------
+# Cache configuration
+# ------------------------------------------------------------------------------
+CACHES = cache_config.CACHES
+
+
+# ------------------------------------------------------------------------------
+# Sessions configuration
+# ------------------------------------------------------------------------------
+SESSION_ENGINE = sessions_config.SESSION_ENGINE
+SESSION_CACHE_ALIAS = sessions_config.SESSION_CACHE_ALIAS
+SESSION_COOKIE_SECURE = sessions_config.SESSION_COOKIE_SECURE
+SESSION_COOKIE_HTTPONLY = sessions_config.SESSION_COOKIE_HTTPONLY
+SESSION_COOKIE_SAMESITE = sessions_config.SESSION_COOKIE_SAMESITE
+SESSION_EXPIRE_AT_BROWSER_CLOSE = sessions_config.SESSION_EXPIRE_AT_BROWSER_CLOSE
+SESSION_COOKIE_AGE = sessions_config.SESSION_COOKIE_AGE
+SESSION_SAVE_EVERY_REQUEST = sessions_config.SESSION_SAVE_EVERY_REQUEST

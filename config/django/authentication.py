@@ -1,8 +1,8 @@
 from pydantic import Field, model_validator
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings as PydanticBaseSettings
 
 
-class AuthenticationSettings(BaseSettings):
+class AuthenticationSettings(PydanticBaseSettings):
     """
     Authentication settings loaded via Pydantic.
     """

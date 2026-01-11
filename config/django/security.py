@@ -16,11 +16,7 @@ class SecuritySettings(BaseSettings):
     )
 
     # Cryptographic secret used by Django (must be provided via environment)
-    SECRET_KEY: SecretStr = Field(
-        default=None,
-        frozen=True,
-        description="Django secret key",
-    )
+    SECRET_KEY: SecretStr = Field(..., frozen=True, description="Django secret key")
 
     @field_validator("SECRET_KEY", mode="before")
     @classmethod
