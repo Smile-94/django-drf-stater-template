@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Any
 
 from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings
@@ -21,7 +21,7 @@ class RestFrameworkSettings(BaseSettings):
 
     # Global permission policy (override per-view when needed)
     # NOTE: Use IsAuthenticated in production
-    DEFAULT_PERMISSION_CLASSES: List[str] = Field(
+    DEFAULT_PERMISSION_CLASSES: list[str] = Field(
         default_factory=list,
         description="Global permission policy for DRF views",
     )
@@ -30,7 +30,7 @@ class RestFrameworkSettings(BaseSettings):
     # Session → browsable API
     # Basic  → legacy / internal tools
     # Token  → programmatic access
-    DEFAULT_AUTHENTICATION_CLASSES: List[str] = [
+    DEFAULT_AUTHENTICATION_CLASSES: list[str] = [
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.TokenAuthentication",
@@ -40,21 +40,21 @@ class RestFrameworkSettings(BaseSettings):
     # - anon   → unauthenticated users
     # - user   → authenticated users
     # - scoped → sensitive endpoints (login, OTP, writes)
-    DEFAULT_THROTTLE_CLASSES: List[str] = [
+    DEFAULT_THROTTLE_CLASSES: list[str] = [
         "rest_framework.throttling.AnonRateThrottle",
         "rest_framework.throttling.UserRateThrottle",
         "rest_framework.throttling.ScopedRateThrottle",
     ]
 
     # Default throttle limits (override per-scope as needed)
-    DEFAULT_THROTTLE_RATES: Dict[str, str] = {
+    DEFAULT_THROTTLE_RATES: dict[str, str] = {
         "anon": "1000/hour",  # shared across all endpoints
         "user": "1000/hour",  # per authenticated user
         "scoped": "1000/hour",  # per throttle_scope
     }
 
     # Accepted request payload formats
-    DEFAULT_PARSER_CLASSES: List[str] = [
+    DEFAULT_PARSER_CLASSES: list[str] = [
         "rest_framework.parsers.JSONParser",
         "rest_framework.parsers.FormParser",
         "rest_framework.parsers.MultiPartParser",
@@ -62,7 +62,7 @@ class RestFrameworkSettings(BaseSettings):
 
     # Response renderers
     # Browsable API is useful for internal tooling; disable in prod if needed
-    DEFAULT_RENDERER_CLASSES: List[str] = ["rest_framework.renderers.JSONRenderer"]
+    DEFAULT_RENDERER_CLASSES: list[str] = ["rest_framework.renderers.JSONRenderer"]
 
     # Centralized exception handling for consistent error responses
     EXCEPTION_HANDLER: str = "config.django.rest_framework.exception_handler"
@@ -80,9 +80,7 @@ class RestFrameworkSettings(BaseSettings):
     @model_validator(mode="after")
     def set_default_permissions(self):
         if env_config.ENVIRONMENT == EnvironmentChoices.PRODUCTION.value:
-            self.DEFAULT_PERMISSION_CLASSES = [
-                "rest_framework.permissions.IsAuthenticated"
-            ]
+            self.DEFAULT_PERMISSION_CLASSES = ["rest_framework.permissions.IsAuthenticated"]
         else:
             self.DEFAULT_PERMISSION_CLASSES = ["rest_framework.permissions.AllowAny"]
         return self
@@ -92,9 +90,7 @@ class RestFrameworkSettings(BaseSettings):
     def set_default_renderer(self):
         # Default renderer for browsable API
         if env_config.ENVIRONMENT != EnvironmentChoices.PRODUCTION.value:
-            self.DEFAULT_RENDERER_CLASSES = [
-                "rest_framework.renderers.BrowsableAPIRenderer"
-            ]
+            self.DEFAULT_RENDERER_CLASSES = ["rest_framework.renderers.BrowsableAPIRenderer"]
         return self
 
     @model_validator(mode="after")

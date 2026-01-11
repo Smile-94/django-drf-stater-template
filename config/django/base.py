@@ -1,6 +1,5 @@
 import ipaddress
 from pathlib import Path, PosixPath
-from typing import List
 
 from pydantic import AliasChoices, Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -21,8 +20,8 @@ class BaseSettings(BaseSettings):
     )
 
     # Django runtime host configuration
-    ALLOWED_HOSTS: List[str] = []
-    INTERNAL_IPS: List[str] = []
+    ALLOWED_HOSTS: list[str] = []
+    INTERNAL_IPS: list[str] = []
 
     # Comma-separated host/IP source loaded from environment
     SERVER_NAME: str = Field(
@@ -39,9 +38,7 @@ class BaseSettings(BaseSettings):
         # Derive ALLOWED_HOSTS from SERVER_NAME to ensure
         # a single source of truth for host configuration
         if self.SERVER_NAME:
-            self.ALLOWED_HOSTS = [
-                host.strip() for host in self.SERVER_NAME.split(",") if host.strip()
-            ]
+            self.ALLOWED_HOSTS = [host.strip() for host in self.SERVER_NAME.split(",") if host.strip()]
         return self
 
     @model_validator(mode="after")

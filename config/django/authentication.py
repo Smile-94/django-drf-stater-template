@@ -1,5 +1,3 @@
-from typing import List
-
 from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings
 
@@ -10,7 +8,7 @@ class AuthenticationSettings(BaseSettings):
     """
 
     # Django password validator definitions (final structure expected by Django)
-    AUTH_PASSWORD_VALIDATORS: List[dict] = Field(default_factory=list)
+    AUTH_PASSWORD_VALIDATORS: list[dict] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def build_auth_password_validators(self) -> "AuthenticationSettings":

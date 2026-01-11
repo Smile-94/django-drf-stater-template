@@ -1,5 +1,3 @@
-from typing import List
-
 from pydantic import model_validator
 from pydantic_settings import BaseSettings
 
@@ -12,7 +10,7 @@ class InstalledAppsSettings(BaseSettings):
     """
 
     # Core Django framework applications (always enabled)
-    DJANGO_APPS: List[str] = [
+    DJANGO_APPS: list[str] = [
         "django.contrib.admin",
         "django.contrib.auth",
         "django.contrib.contenttypes",
@@ -22,10 +20,10 @@ class InstalledAppsSettings(BaseSettings):
     ]
 
     # Third-party applications common across environments
-    THIRD_PARTY_APPS: List[str] = ["django_filters", "rest_framework"]
+    THIRD_PARTY_APPS: list[str] = ["django_filters", "rest_framework"]
 
     # Environment-specific app toggles (e.g. debug tools in local only)
-    ENVIRONMENT_APPS: dict[str, List[str]] = {
+    ENVIRONMENT_APPS: dict[str, list[str]] = {
         "local": ["debug_toolbar"],
         "development": [],
         "staging": [],
@@ -33,24 +31,20 @@ class InstalledAppsSettings(BaseSettings):
     }
 
     # Project-specific Django apps
-    LOCAL_APPS: List[str] = [
+    LOCAL_APPS: list[str] = [
         "apps.common.apps.CommonConfig",
     ]
 
     # Final Django-compatible INSTALLED_APPS list
-    INSTALLED_APPS: List[str] = []
+    INSTALLED_APPS: list[str] = []
 
     @model_validator(mode="after")
     def set_apps(self):
         # Inject environment-specific apps based on active runtime environment
-        self.THIRD_PARTY_APPS += list(
-            self.ENVIRONMENT_APPS[env_config.ENVIRONMENT.value]
-        )
+        self.THIRD_PARTY_APPS += list(self.ENVIRONMENT_APPS[env_config.ENVIRONMENT.value])
 
         # Preserve Django app loading order: core → third-party → local
-        self.INSTALLED_APPS = list(
-            self.DJANGO_APPS + self.THIRD_PARTY_APPS + self.LOCAL_APPS
-        )
+        self.INSTALLED_APPS = list(self.DJANGO_APPS + self.THIRD_PARTY_APPS + self.LOCAL_APPS)
         return self
 
 

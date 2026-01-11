@@ -18,6 +18,7 @@ Installation Guide and Django Dependency Management
   - [5.1 Initialized Project](#51-initialized-project)
   - [5.2 Generated pyproject.toml File](#52-generated-pyprojecttoml-file)
   - [5.3 Poetry Install](#53-poetry-install)
+  - [5.4 Django Project With Poetry](#54-django-project-with-poetry)
 - [6 Manage Project](#6-manage-project)
   - [6.1 Poetry Add Package](#61-poetry-add-package)
   - [6.2 Poetry Update Package](#62-poetry-update-package)
@@ -369,6 +370,74 @@ The poetry add command supports several options to customize the installation pr
    ```
 
    This option is useful if you want to install alpha, beta, or release candidate versions of a package.
+
+### 5.4 Django Project With Poetry
+1. **Create Project Directory**
+
+   ```zsh
+   mkdir my_django_project
+   cd my_django_project
+   ```
+
+2. **Initialize Poetry**
+
+   ```zsh
+   poetry init
+   ```
+3. **Adding Django to the Project**
+
+   ```zsh
+   poetry add django
+   ```
+4. **For REST APIs:**
+
+   ```zsh
+   poetry add djangorestframework
+   ```
+5. **Development tools:**
+
+   ```zsh
+   poetry add --group dev black ruff pytest pytest-django
+   ```
+ 6. **Creating Django Project**
+      ```zsh
+      poetry run django-admin startproject config .
+      ```
+ 7. **Run Server**
+
+      ```zsh
+      poetry run python manage.py runserver 0.0.0.0:8000
+      ```
+8. **Run Django Commands**
+   ```zsh
+   poetry run python manage.py makemigrations
+   poetry run python manage.py migrate
+   poetry run python manage.py createsuperuser
+   poetry run python manage.py collectstatic
+   ```
+9. **Add Packages to Poetry**
+
+   ```zsh
+   poetry add redis celery
+   ```
+10. **Remove Packages from Poetry**
+
+    ```zsh
+    poetry remove redis
+    ```
+11. **Update Dependencies**
+    ```zsh
+    poetry update
+    ```
+12. **Show Installed Packages**
+    ```zsh
+    poetry show
+    ```
+13. **Poetry with Multiple Environments**
+    ```zsh
+    poetry add gunicorn --group prod
+    poetry add django-debug-toolbar --group dev
+    ```
 
 ### 6.2 Poetry Update Package
 
