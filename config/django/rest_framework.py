@@ -3,7 +3,7 @@ from typing import Any, Dict, List
 from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings
 
-from config.env import EnvironmentChoices, env_config
+from config.environment import EnvironmentChoices, env_config
 
 
 class RestFrameworkSettings(BaseSettings):

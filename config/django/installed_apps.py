@@ -3,7 +3,7 @@ from typing import List
 from pydantic import model_validator
 from pydantic_settings import BaseSettings
 
-from config.env import env_config
+from config.environment import env_config
 
 
 class InstalledAppsSettings(BaseSettings):

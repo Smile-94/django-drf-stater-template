@@ -5,7 +5,7 @@ from typing import List
 from pydantic import AliasChoices, Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from config.env import env_config
+from config.environment import env_config
 
 
 class BaseSettings(BaseSettings):

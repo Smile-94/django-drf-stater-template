@@ -4,7 +4,7 @@ from pydantic import Field, SecretStr, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from config.django.base import base_config
-from config.env import env_config
+from config.environment import env_config
 
 
 class DatabaseChoices(str, Enum):

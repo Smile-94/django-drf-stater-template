@@ -1,5 +1,5 @@
 from config.django.base import base_config
-from config.env import EnvironmentChoices, env_config
+from config.environment import EnvironmentChoices, env_config
 
 
 def validate_production_settings():

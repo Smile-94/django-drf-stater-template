@@ -24,11 +24,11 @@ class EnvironmentSettings(BaseSettings):
     def ENVIRONMENT_FILE(self) -> str:
         # Derive environment-specific .env file from ENVIRONMENT
         # Example: env/.env.production
-        return f"env/.env.{self.ENVIRONMENT.value}"
+        return f"_environment/.env.{self.ENVIRONMENT.value}"
 
     model_config = SettingsConfigDict(
         # Base .env file used only to resolve ENVIRONMENT
-        env_file="env/.env",
+        env_file="_environment/.env",
         # Ignore unrelated environment variables
         extra="ignore",
     )
