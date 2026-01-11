@@ -29,5 +29,5 @@ def get_request_log(request, message="Request Log"):
         "query_params": dict(request.query_params) if request.query_params else {},
     }
 
-    logger.info(f"INFO:---------------------------- REQUEST LOG: {log_data}")
+    logger.info(f"INFO:----------->> REQUEST LOG: {log_data}")
     return request
