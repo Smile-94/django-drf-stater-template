@@ -17,6 +17,16 @@ venv/
 env/
 ENV/
 
+# Allow environment directory
+!_environment/
+!_environment/**/
+!_environment/.env.example
+
+
+# Ignore real env files
+_environment/.env
+_environment/.env.*
+
 # Poetry
 # poetry.lock
 poetry.toml
